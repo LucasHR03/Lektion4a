@@ -2,26 +2,32 @@
 	import { goto } from '$app/navigation';
 
 
-	let userName = $state('');
-	let password = $state('');
+	let username = $state('user');
+        let password = $state('password');
 
-	const btnclick = () => {
-		if (userName === 'admin' && password === 'admin') {
-			goto('/home');
-		} else {
-			alert('Login failed');
-		}
-	};
+        const login = async () => {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await response.json();
+        if (response.ok) {
+            goto('/admin');
+        } else {
+            alert('Login fejlet!');
+        }
+    };
 </script>
 
 <div>
-	<input class="input m-2" bind:value={userName} placeholder="Brugernavn" />
+	<input class="input m-2" bind:value={username} placeholder="Brugernavn" />
 </div>
 <div>
 	<input class="input m-2" bind:value={password} placeholder="Kodeord" />
 </div>
 <div>
-	<button class="btn btn-primary m-2" onclick={btnclick}  >Login</button>
+	<button class="btn btn-primary m-2" onclick={login}  >Login</button>
 </div>
 
 

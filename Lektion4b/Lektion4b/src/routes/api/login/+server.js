@@ -24,6 +24,9 @@ export async function POST({ request, cookies }) {
         return new Response(JSON.stringify({ error: 'Invalid password' }), { status: 401 });
     }
     // Set the session cookie with the user ID
-    cookies.set('session', userData.id.toString(), { path: '/', httpOnly: true, maxAge: 60 * 60 }); // 1 hour
+    const token = jwt.sign({ id: userData.id, username: username }, env.JWT_SECRET, { expiresIn: '1h' }); // 1 hour expiration
+// Set the session cookie with the token
+cookies.set('session', token, { path: '/', httpOnly: true, maxAge: 60 * 60 }); // 1 hour
     return new Response(JSON.stringify({ message: 'Login successful' }), { status: 200 });
 }
+
