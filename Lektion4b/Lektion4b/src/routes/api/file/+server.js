@@ -10,6 +10,7 @@ export async function POST({ request, cookies }) {
             error: true,
             message: 'You must provide a file to upload'
         });
+    
     }
     const { url } = await put('data/' + data.name, data, { access: 'public', token: env.BLOB_READ_WRITE_TOKEN});
     return new Response(url, { status: 201 });
