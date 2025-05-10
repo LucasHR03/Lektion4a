@@ -40,4 +40,3 @@
         <p>{post.content}</p>
     </div>
 {/each}
-<button onclick={Upload-file}>Upload fill</button>
