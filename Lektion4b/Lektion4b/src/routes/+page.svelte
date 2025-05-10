@@ -13,7 +13,7 @@
         });
         const data = await response.json();
         if (response.ok) {
-            goto('/admin');
+            goto('/diary');
         } else {
             alert('Login fejlet!');
         }
